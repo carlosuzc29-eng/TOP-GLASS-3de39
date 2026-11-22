@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  /* Lamborghini.com Style Reference — Colors */
+  --color-giallo-vivo: #ffc000;
+  --color-giallo-ombra: #917300;
+  --color-carbony-black: #202020;
+  --color-pure-black: #000000;
+  --color-carbon-deep: #181818;
+  --color-pearl-white: #ffffff;
+  --color-marble-gray: #f5f5f5;
+  --color-graphite-border: #494949;
+  --color-steel-mid: #7d7d7d;
+  --color-ash-border: #969696;
+  --color-anvil: #313131;
+
+  /* Surfaces */
+  --surface-canvas-white: #ffffff;
+  --surface-marble: #f5f5f5;
+  --surface-carbony: #202020;
+  --surface-carbon-deep: #181818;
+  --surface-pure-black: #000000;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --page-max-width: 1440px;
+
+  /* Named Radii — strictly 0px hard edges */
+  --radius-cards: 0px;
+  --radius-badges: 0px;
+  --radius-images: 0px;
+  --radius-buttons: 0px;
+
+  /* 7-step signature shade scale (70% -> 5% VLT) */
+  --shade-70: rgba(0, 0, 0, 0.14);
+  --shade-56: rgba(0, 0, 0, 0.28);
+  --shade-40: rgba(0, 0, 0, 0.42);
+  --shade-33: rgba(0, 0, 0, 0.56);
+  --shade-22: rgba(0, 0, 0, 0.72);
+  --shade-15: rgba(0, 0, 0, 0.86);
+  --shade-5: rgba(0, 0, 0, 0.96);
+}
+
+@theme inline {
+  --color-giallo-vivo: var(--color-giallo-vivo);
+  --color-giallo-ombra: var(--color-giallo-ombra);
+  --color-carbony-black: var(--color-carbony-black);
+  --color-pure-black: var(--color-pure-black);
+  --color-carbon-deep: var(--color-carbon-deep);
+  --color-pearl-white: var(--color-pearl-white);
+  --color-marble-gray: var(--color-marble-gray);
+  --color-graphite-border: var(--color-graphite-border);
+  --color-steel-mid: var(--color-steel-mid);
+  --color-ash-border: var(--color-ash-border);
+  --color-anvil: var(--color-anvil);
+
+  --font-display: var(--font-lambotype), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-lambotype), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-open-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+html {
+  background-color: var(--color-carbony-black);
+  color: var(--color-carbony-black);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-pearl-white);
+  color: var(--color-carbony-black);
+  font-family: var(--font-lambotype), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.023em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-lambotype), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.023em;
+}
+
+.font-body {
+  font-family: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Signature horizontal shade scale gradient */
+.shade-scale-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.25) 16.6%,
+    rgba(125, 125, 125, 0.45) 33.3%,
+    rgba(73, 73, 73, 0.65) 50%,
+    rgba(32, 32, 32, 0.8) 66.6%,
+    rgba(24, 24, 24, 0.92) 83.3%,
+    #000000 100%
+  );
+}
+
+/* Accessible focus outlines — sharp Giallo ring */
+:focus-visible {
+  outline: 2px solid var(--color-giallo-vivo);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
