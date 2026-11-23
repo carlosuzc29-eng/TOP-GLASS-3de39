@@ -110,20 +110,20 @@ export function AppointmentManager({
           <dl className="mt-6 space-y-4 text-sm">
             <div className="flex items-start justify-between gap-4">
               <dt className="flex items-center gap-2 text-xs text-[var(--color-steel-mid)] uppercase">
-                <Calendar className="h-4 w-4 text-[var(--color-carbony-black)]" /> DATE & TIME
+                <Calendar className="h-4 w-4 text-[var(--color-carbony-black)]" /> {tAppt('dateTime')}
               </dt>
               <dd className="font-body text-right text-[var(--color-carbony-black)]">
                 {new Date(startsAt).toLocaleString(locale === 'es' ? 'es-US' : 'en-US', {
                   dateStyle: 'full',
                   timeStyle: 'short',
                 })}{' '}
-                ({waitType === 'wait' ? 'Waiting' : 'Drop-off'})
+                ({waitType === 'wait' ? tAppt('waiting') : tAppt('dropOff')})
               </dd>
             </div>
 
             <div className="flex items-start justify-between gap-4">
               <dt className="flex items-center gap-2 text-xs text-[var(--color-steel-mid)] uppercase">
-                <MapPin className="h-4 w-4 text-[var(--color-carbony-black)]" /> STUDIO
+                <MapPin className="h-4 w-4 text-[var(--color-carbony-black)]" /> {tAppt('location')}
               </dt>
               <dd className="text-right text-[var(--color-carbony-black)]">
                 <span className="block uppercase">{locationName}</span>
@@ -189,8 +189,8 @@ export function AppointmentManager({
           {status === 'cancelled' && refunded !== null && (
             <p className="font-body mt-4 border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)] p-3 text-xs text-[var(--color-anvil)]">
               {refunded
-                ? 'Your appointment has been cancelled and your deposit refund has been initiated.'
-                : 'Your appointment has been cancelled.'}
+                ? tAppt('cancelledRefunded')
+                : tAppt('cancelledNoRefund')}
             </p>
           )}
         </div>

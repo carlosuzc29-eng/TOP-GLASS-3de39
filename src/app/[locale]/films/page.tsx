@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { ArrowRight, Play } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FilmSpecCard } from '@/components/quote/FilmSpecCard';
@@ -26,8 +27,20 @@ export default async function FilmsPage({
 
   return (
     <div>
-      <section className="bg-[var(--color-carbony-black)] py-16 text-white">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-[var(--color-carbony-black)] py-20 text-white">
+        <Image
+          src="/vehicles/urus-studio.webp"
+          alt="Lamborghini Urus ceramic window film showcase"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-25"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#202020] via-[#202020]/85 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <p className="text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
             {t('eyebrow')}
           </p>
@@ -80,12 +93,19 @@ export default async function FilmsPage({
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="flex aspect-video items-center justify-center bg-[var(--color-carbony-black)] text-white">
-              <div className="flex flex-col items-center gap-3 text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
-                <span className="flex h-14 w-14 items-center justify-center border border-white text-white">
+            <div className="relative flex aspect-video items-center justify-center overflow-hidden bg-[var(--color-carbony-black)] text-white">
+              <Image
+                src="/images/craft-precision.jpg"
+                alt="Ceramic film heat lamp demonstration preview"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover opacity-55"
+              />
+              <div className="relative flex flex-col items-center gap-3 text-xs tracking-[0.023em] text-white uppercase">
+                <span className="flex h-14 w-14 items-center justify-center border border-white bg-black/50 text-[var(--color-giallo-vivo)]">
                   <Play className="h-5 w-5" />
                 </span>
-                <span>HEAT LAMP STUDIO VIDEO (TODO(CONTENT))</span>
+                <span>HEAT LAMP STUDIO DEMO</span>
               </div>
             </div>
           </div>

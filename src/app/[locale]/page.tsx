@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ArrowRight, Eye, Flame, MapPin, Shield, Star } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { InteractiveHero } from '@/components/home/InteractiveHero';
@@ -52,6 +53,30 @@ export default async function HomePage({
       author: 'Jordan K.',
       vehicle: '2024 FORD F-150 · CERAMIC IR MAX',
       text: 'Matched my front doors to the factory rear glass and added clear windshield film. Feels like an exotic car showroom, not a typical tint shop.',
+    },
+  ];
+
+  const studioGallery = [
+    {
+      tag: 'PRINCETON STUDIO',
+      title: '2024 LAMBORGHINI URUS',
+      spec: 'CERAMIC PRO · 33% FRONT / 15% REAR',
+      image: '/images/gallery-urus.jpg',
+      alt: 'Red Lamborghini Urus with ceramic window tint in dark concrete studio',
+    },
+    {
+      tag: 'COLLIN COUNTY',
+      title: '2024 FORD F-150 CREW',
+      spec: 'CERAMIC IR MAX · 33% FRONT MATCH + 70% WINDSHIELD',
+      image: '/images/gallery-f150.jpg',
+      alt: 'Black Ford F-150 Crew Cab with dark ceramic window tint in studio',
+    },
+    {
+      tag: 'PRINCETON STUDIO',
+      title: '2023 PORSCHE MACAN',
+      spec: 'CERAMIC PRO · 33% FRONT / 22% REAR',
+      image: '/images/gallery-macan.jpg',
+      alt: 'Chalk-gray Porsche Macan with dark ceramic tint at dusk',
     },
   ];
 
@@ -111,6 +136,47 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* FULL-BLEED EDITORIAL CRAFT BAND — MACRO INSTALLATION PHOTOGRAPHY */}
+      <section className="relative h-[420px] w-full overflow-hidden bg-[var(--color-pure-black)] text-white lg:h-[520px]">
+        <Image
+          src="/images/craft-precision.jpg"
+          alt="Precision micro-edge ceramic window film installation"
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-75"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto flex h-full max-w-[1440px] flex-col justify-center px-4 sm:px-6 lg:px-10">
+          <div className="max-w-xl space-y-4">
+            <p className="text-xs tracking-[0.023em] text-[var(--color-giallo-vivo)] uppercase">
+              MICRO-EDGE PRECISION · DUST-CONTROLLED BAY
+            </p>
+            <h2 className="font-display text-4xl leading-[0.96] font-normal uppercase sm:text-6xl">
+              {locale === 'es'
+                ? 'CORTE DIGITAL. ACABADO DE FÁBRICA.'
+                : 'COMPUTER-CUT. FACTORY-EDGE FINISH.'}
+            </h2>
+            <p className="font-body text-sm text-[var(--color-ash-border)] sm:text-base">
+              {locale === 'es'
+                ? 'Sin cuchillas sobre tu vidrio. Cada pieza se traza digitalmente al milímetro y se instala en cabina sellada.'
+                : 'Zero blades on your glass. Every pattern is plotted to your exact VIN and installed inside a sealed studio bay.'}
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/films"
+                className="inline-flex items-center gap-2 text-xs tracking-[0.023em] text-white uppercase hover:text-[var(--color-giallo-vivo)]"
+              >
+                <span>{t('filmsCta')}</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BAND 3: CARBON DEEP (#181818) — FILM TIERS SHOWCASE */}
       <section className="bg-[var(--color-carbon-deep)] py-20 text-white">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
@@ -156,7 +222,7 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* BAND 4: MARBLE GRAY (#f5f5f5) — THREE-COLUMN STORY GRID (BEFORE / AFTER) */}
+      {/* BAND 4: MARBLE GRAY (#f5f5f5) — THREE-COLUMN STORY GRID WITH REAL STUDIO PHOTOGRAPHY */}
       <section className="bg-[var(--color-marble-gray)] py-20 text-[var(--color-carbony-black)]">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <div className="flex flex-col items-start justify-between gap-4 pb-10 md:flex-row md:items-end">
@@ -172,42 +238,16 @@ export default async function HomePage({
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                tag: 'PRINCETON STUDIO',
-                title: '2024 LAMBORGHINI URUS',
-                spec: 'CERAMIC PRO · 33% FRONT / 15% REAR',
-              },
-              {
-                tag: 'COLLIN COUNTY',
-                title: '2024 FORD F-150 CREW',
-                spec: 'CERAMIC IR MAX · 33% FRONT MATCH + 70% WINDSHIELD',
-              },
-              {
-                tag: 'PRINCETON STUDIO',
-                title: '2023 PORSCHE MACAN',
-                spec: 'CERAMIC PRO · 33% FRONT / 22% REAR',
-              },
-            ].map((item) => (
-              <article key={item.title} className="bg-[var(--color-pearl-white)]">
-                {/* TODO(content): Replace with real before/after studio photography via next/image */}
-                <div className="grid h-52 grid-cols-2">
-                  <div className="flex flex-col justify-between bg-[#DCDCDC] p-4">
-                    <span className="w-fit bg-[var(--color-pearl-white)] px-2 py-0.5 text-[10px] tracking-[0.023em] text-[var(--color-carbony-black)] uppercase">
-                      BEFORE
-                    </span>
-                    <span className="text-[10px] tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-                      FACTORY GLASS
-                    </span>
-                  </div>
-                  <div className="flex flex-col justify-between bg-[var(--color-pure-black)] p-4 text-white">
-                    <span className="w-fit bg-[var(--color-giallo-vivo)] px-2 py-0.5 text-[10px] tracking-[0.023em] text-[var(--color-pure-black)] uppercase">
-                      AFTER
-                    </span>
-                    <span className="text-[10px] tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
-                      TOP GLASS CERAMIC
-                    </span>
-                  </div>
+            {studioGallery.map((item) => (
+              <article key={item.title} className="group bg-[var(--color-pearl-white)]">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--color-carbony-black)]">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <div className="p-6">
                   <p className="text-[10px] tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
@@ -267,7 +307,7 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* BAND 6: MARBLE GRAY (#f5f5f5) — LOCATIONS */}
+      {/* BAND 6: MARBLE GRAY (#f5f5f5) — LOCATIONS WITH STUDIO PHOTOGRAPHY */}
       <section className="bg-[var(--color-marble-gray)] py-20 text-[var(--color-carbony-black)]">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <div className="pb-10">
@@ -280,64 +320,84 @@ export default async function HomePage({
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            {catalog.locations.map((loc) => (
-              <div
-                key={loc.id}
-                className="flex flex-col justify-between border border-[var(--color-ash-border)] bg-[var(--color-pearl-white)] p-8"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-4">
-                    <h3 className="flex items-center gap-2 font-display text-3xl font-normal text-[var(--color-carbony-black)] uppercase">
-                      <MapPin className="h-5 w-5 text-[var(--color-carbony-black)]" />
-                      {loc.name}
-                    </h3>
+            {catalog.locations.map((loc) => {
+              const locImg =
+                loc.slug === 'princeton-tx'
+                  ? '/images/studio-princeton.jpg'
+                  : '/vehicles/urus-studio.webp';
+              return (
+                <div
+                  key={loc.id}
+                  className="flex flex-col justify-between border border-[var(--color-ash-border)] bg-[var(--color-pearl-white)]"
+                >
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--color-carbony-black)]">
+                    <Image
+                      src={locImg}
+                      alt={`${loc.name} studio`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
                     {loc.status === 'coming_soon' && (
-                      <span className="bg-[var(--color-carbony-black)] px-3 py-1 text-[10px] tracking-[0.023em] text-[var(--color-giallo-vivo)] uppercase">
+                      <span className="absolute top-4 right-4 bg-[var(--color-carbony-black)] px-3 py-1 text-[10px] tracking-[0.023em] text-[var(--color-giallo-vivo)] uppercase">
                         COMING SOON
                       </span>
                     )}
                   </div>
 
-                  <dl className="mt-6 space-y-3 text-sm">
-                    <div className="flex justify-between gap-4 border-b border-[var(--color-ash-border)] pb-3">
-                      <dt className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-                        {t('locationsAddress')}
-                      </dt>
-                      <dd className="font-body text-right text-[var(--color-carbony-black)]">
-                        {loc.address}
-                      </dd>
-                    </div>
-                    <div className="flex justify-between gap-4 border-b border-[var(--color-ash-border)] pb-3">
-                      <dt className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-                        {t('locationsHours')}
-                      </dt>
-                      <dd className="font-body text-right text-[var(--color-carbony-black)]">
-                        Mon–Fri 9:00–18:00 · Sat 9:00–16:00
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
+                  <div className="flex flex-1 flex-col justify-between p-8">
+                    <div>
+                      <h3 className="flex items-center gap-2 font-display text-3xl font-normal text-[var(--color-carbony-black)] uppercase">
+                        <MapPin className="h-5 w-5 text-[var(--color-carbony-black)]" />
+                        {loc.name}
+                      </h3>
 
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Link
-                    href={loc.status === 'active' ? '/quote' : '/quote?loc=loc-salt-lake-city-ut'}
-                    className="inline-flex h-12 items-center gap-2 bg-[var(--color-carbony-black)] px-6 text-xs tracking-[0.023em] text-white uppercase transition-colors hover:bg-[var(--color-pure-black)]"
-                  >
-                    <span>{loc.status === 'active' ? t('locationsBook') : t('locationsWaitlist')}</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  {loc.slug === 'princeton-tx' && (
-                    <Link
-                      href="/princeton-tx"
-                      className="inline-flex h-12 items-center gap-2 border border-[var(--color-steel-mid)] px-6 text-xs tracking-[0.023em] text-[var(--color-carbony-black)] uppercase hover:border-[var(--color-pure-black)]"
-                    >
-                      <span>STUDIO DETAILS</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  )}
+                      <dl className="mt-6 space-y-3 text-sm">
+                        <div className="flex justify-between gap-4 border-b border-[var(--color-ash-border)] pb-3">
+                          <dt className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
+                            {t('locationsAddress')}
+                          </dt>
+                          <dd className="font-body text-right text-[var(--color-carbony-black)]">
+                            {loc.address}
+                          </dd>
+                        </div>
+                        <div className="flex justify-between gap-4 border-b border-[var(--color-ash-border)] pb-3">
+                          <dt className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
+                            {t('locationsHours')}
+                          </dt>
+                          <dd className="font-body text-right text-[var(--color-carbony-black)]">
+                            Mon–Fri 9:00–18:00 · Sat 9:00–16:00
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap gap-4">
+                      <Link
+                        href={
+                          loc.status === 'active' ? '/quote' : '/quote?loc=loc-salt-lake-city-ut'
+                        }
+                        className="inline-flex h-12 items-center gap-2 bg-[var(--color-carbony-black)] px-6 text-xs tracking-[0.023em] text-white uppercase transition-colors hover:bg-[var(--color-pure-black)]"
+                      >
+                        <span>
+                          {loc.status === 'active' ? t('locationsBook') : t('locationsWaitlist')}
+                        </span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      {loc.slug === 'princeton-tx' && (
+                        <Link
+                          href="/princeton-tx"
+                          className="inline-flex h-12 items-center gap-2 border border-[var(--color-steel-mid)] px-6 text-xs tracking-[0.023em] text-[var(--color-carbony-black)] uppercase hover:border-[var(--color-pure-black)]"
+                        >
+                          <span>STUDIO DETAILS</span>
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

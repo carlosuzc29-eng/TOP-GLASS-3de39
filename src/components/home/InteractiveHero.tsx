@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { CarSilhouette } from '@/components/brand/CarSilhouette';
@@ -12,8 +13,22 @@ export function InteractiveHero() {
   const [previewShade, setPreviewShade] = useState<number>(22);
 
   return (
-    <section className="relative w-full bg-[var(--color-carbony-black)] text-white">
-      <div className="mx-auto max-w-[1440px] px-4 pt-12 pb-16 sm:px-6 lg:px-10 lg:pt-20 lg:pb-24">
+    <section className="relative w-full overflow-hidden bg-[var(--color-carbony-black)] text-white">
+      {/* Subtle architectural dark studio photography backdrop */}
+      <Image
+        src="/images/studio-princeton.jpg"
+        alt="Top Glass Window Tint studio bay"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center opacity-20"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#202020] via-[#202020]/90 to-[#181818]/85"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-[1440px] px-4 pt-12 pb-16 sm:px-6 lg:px-10 lg:pt-20 lg:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Left column: Monolithic uppercase LamboType headline + single Giallo CTA */}
           <div className="space-y-6 lg:col-span-6">
@@ -48,38 +63,29 @@ export function InteractiveHero() {
             </div>
           </div>
 
-          {/* Right column: real studio Urus photo with live tint + VLT scale */}
+          {/* Right column: Red Lamborghini Urus under dark showroom spotlights + live VLT bar */}
           <div className="lg:col-span-6">
-            <div className="overflow-hidden border border-[var(--color-graphite-border)] bg-[var(--color-carbon-deep)] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
-              <div className="relative">
-                <CarSilhouette bodyType="suv" frontShade={previewShade} rearShade={previewShade} />
-
-                {/* Overlay readout */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3 sm:p-4">
-                  <span className="flex items-center gap-2 bg-black/70 px-2.5 py-1 text-[10px] tracking-[0.08em] text-white uppercase backdrop-blur-sm">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-giallo-vivo)]" />
-                    {t('heroStageLabel')}
-                  </span>
-                  <span
-                    aria-live="polite"
-                    className="bg-black/75 px-3 py-1.5 text-right backdrop-blur-sm"
-                  >
-                    <span className="block font-display text-xl leading-none tabular-nums text-[var(--color-giallo-vivo)] sm:text-2xl">
-                      {t('heroVltLabel', { vlt: previewShade })}
-                    </span>
-                    <span className="mt-1 block text-[10px] tracking-[0.08em] text-white/80 uppercase">
-                      {t(`shadeNames.${previewShade}`)}
-                    </span>
-                  </span>
-                </div>
+            <div className="border border-[var(--color-graphite-border)] bg-[var(--color-carbon-deep)]/95 p-6 sm:p-8">
+              <div className="mb-4 flex items-center justify-between text-xs tracking-[0.023em] uppercase">
+                <span className="text-[var(--color-ash-border)]">{t('heroShadePrompt')}</span>
+                <span className="border border-[var(--color-graphite-border)] bg-[var(--color-pure-black)] px-3 py-1 tabular-nums text-[var(--color-giallo-vivo)]">
+                  {t('heroVltLabel', { vlt: previewShade })}
+                </span>
               </div>
 
-              <div className="border-t border-[var(--color-graphite-border)] p-5 sm:p-6">
-                <p className="mb-3 text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
-                  {t('heroShadePrompt')}
-                </p>
-                <ShadeScaleBar value={previewShade} onChange={setPreviewShade} variant="dark" />
-              </div>
+              <CarSilhouette
+                bodyType="suv"
+                frontShade={previewShade}
+                rearShade={previewShade}
+                className="my-4"
+              />
+
+              <ShadeScaleBar
+                value={previewShade}
+                onChange={setPreviewShade}
+                variant="dark"
+                className="mt-6"
+              />
             </div>
           </div>
         </div>

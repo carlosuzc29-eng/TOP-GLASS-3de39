@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
@@ -30,8 +31,20 @@ export default async function TintLawsPage({
 
   return (
     <div>
-      <section className="bg-[var(--color-carbony-black)] py-16 text-white">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-[var(--color-carbony-black)] py-20 text-white">
+        <Image
+          src="/images/gallery-macan.jpg"
+          alt="Luxury SUV with state-compliant ceramic window tint"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-25"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#202020] via-[#202020]/85 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <p className="text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
             {t('eyebrow')}
           </p>

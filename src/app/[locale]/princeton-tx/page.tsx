@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { ArrowRight, Clock, MapPin, Phone, ShieldCheck } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
@@ -26,8 +27,20 @@ export default async function PrincetonPage({
 
   return (
     <div>
-      <section className="bg-[var(--color-carbony-black)] py-16 text-white">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-[var(--color-carbony-black)] py-20 text-white">
+        <Image
+          src="/images/studio-princeton.jpg"
+          alt="Princeton Texas ceramic window tint studio"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-30"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#202020] via-[#202020]/85 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <p className="text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
             {t('eyebrow')}
           </p>
@@ -59,32 +72,43 @@ export default async function PrincetonPage({
 
       <section className="bg-[var(--color-pearl-white)] py-20">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-10">
-          <div className="space-y-6 border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)] p-8">
-            <h2 className="font-display text-3xl font-normal text-[var(--color-carbony-black)] uppercase">
-              PRINCETON STUDIO
-            </h2>
-            <div className="font-body space-y-3 text-sm text-[var(--color-carbony-black)]">
-              <p className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{princeton.address}</span>
-              </p>
-              <p className="flex items-start gap-2.5">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{princeton.phone}</span>
-              </p>
-              <p className="flex items-start gap-2.5">
-                <Clock className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>Mon–Fri 9:00 AM – 6:00 PM · Sat 9:00 AM – 4:00 PM · Sun Closed</span>
-              </p>
+          <div className="flex flex-col border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)]">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--color-carbony-black)]">
+              <Image
+                src="/images/gallery-urus.jpg"
+                alt="Red Lamborghini Urus inside Princeton studio"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
+            <div className="space-y-6 p-8">
+              <h2 className="font-display text-3xl font-normal text-[var(--color-carbony-black)] uppercase">
+                PRINCETON STUDIO
+              </h2>
+              <div className="font-body space-y-3 text-sm text-[var(--color-carbony-black)]">
+                <p className="flex items-start gap-2.5">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{princeton.address}</span>
+                </p>
+                <p className="flex items-start gap-2.5">
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{princeton.phone}</span>
+                </p>
+                <p className="flex items-start gap-2.5">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>Mon–Fri 9:00 AM – 6:00 PM · Sat 9:00 AM – 4:00 PM · Sun Closed</span>
+                </p>
+              </div>
 
-            <div className="border-t border-[var(--color-ash-border)] pt-5">
-              <p className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-                {t('areasTitle')}
-              </p>
-              <p className="mt-2 text-base tracking-[0.023em] text-[var(--color-carbony-black)] uppercase">
-                {t('areasList')}
-              </p>
+              <div className="border-t border-[var(--color-ash-border)] pt-5">
+                <p className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
+                  {t('areasTitle')}
+                </p>
+                <p className="mt-2 text-base tracking-[0.023em] text-[var(--color-carbony-black)] uppercase">
+                  {t('areasList')}
+                </p>
+              </div>
             </div>
           </div>
 

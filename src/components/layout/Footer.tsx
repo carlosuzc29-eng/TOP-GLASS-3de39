@@ -7,6 +7,7 @@ export function Footer() {
   const tNav = useTranslations('nav');
   const tBrand = useTranslations('brand');
   const tFooter = useTranslations('footer');
+  const tCommon = useTranslations('common');
 
   return (
     <footer className="bg-[var(--color-carbon-deep)] text-white">
@@ -50,7 +51,7 @@ export function Footer() {
 
           <div>
             <p className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-              STUDIO
+              {tFooter('servicesTitle')}
             </p>
             <ul className="mt-5 space-y-3 text-sm uppercase">
               <li>
@@ -81,7 +82,7 @@ export function Footer() {
 
           <div>
             <p className="text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-              LOCATIONS
+              {tFooter('locationsTitle')}
             </p>
             <ul className="mt-5 space-y-3 text-sm uppercase">
               <li>
@@ -105,7 +106,7 @@ export function Footer() {
           <p>
             &copy; {new Date().getFullYear()} {tBrand('name')}. {tFooter('rights')}
           </p>
-          <p>PRINCETON, TX · COLLIN COUNTY</p>
+          <p>{tCommon('region')}</p>
         </div>
       </div>
     </footer>

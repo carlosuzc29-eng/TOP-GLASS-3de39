@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 import { formatCents } from '@/lib/pricing';
 import type { Film, Locale } from '@/types/domain';
@@ -19,6 +20,8 @@ export function CompareFilmsModal({
   locale,
   pricesByTier,
 }: CompareFilmsModalProps) {
+  const t = useTranslations('quote');
+  const tCommon = useTranslations('common');
   if (!open) return null;
 
   return (
@@ -26,18 +29,18 @@ export function CompareFilmsModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Compare window films"
+      aria-label={t('compareTitle')}
     >
       <div className="max-h-[90vh] w-full max-w-4xl overflow-auto border border-[var(--color-graphite-border)] bg-[var(--color-pearl-white)] p-6 text-[var(--color-carbony-black)]">
         <div className="flex items-center justify-between border-b border-[var(--color-ash-border)] pb-4">
           <h2 className="font-display text-3xl font-normal uppercase">
-            {locale === 'es' ? 'COMPARAR NIVELES DE LÁMINA' : 'COMPARE FILM TIERS'}
+            {t('compareTitle')}
           </h2>
           <button
             type="button"
             onClick={onClose}
             className="inline-flex h-10 w-10 items-center justify-center border border-[var(--color-ash-border)] text-[var(--color-carbony-black)] hover:border-[var(--color-pure-black)]"
-            aria-label="Close comparison"
+            aria-label={tCommon('close')}
           >
             <X className="h-4 w-4" />
           </button>
@@ -48,7 +51,7 @@ export function CompareFilmsModal({
             <thead>
               <tr className="border-b border-[var(--color-carbony-black)]">
                 <th className="py-3 pr-4 text-xs tracking-[0.023em] text-[var(--color-steel-mid)] uppercase">
-                  {locale === 'es' ? 'ESPECIFICACIÓN' : 'SPECIFICATION'}
+                  {t('compareSpec')}
                 </th>
                 {films.map((f) => (
                   <th
@@ -68,7 +71,7 @@ export function CompareFilmsModal({
             <tbody className="divide-y divide-[var(--color-ash-border)]">
               <tr>
                 <td className="py-3 pr-4 text-xs uppercase text-[var(--color-steel-mid)]">
-                  TSER (SOLAR HEAT)
+                  {t('compareTser')}
                 </td>
                 {films.map((f) => (
                   <td key={f.id} className="px-3 py-3 tabular-nums">
@@ -78,7 +81,7 @@ export function CompareFilmsModal({
               </tr>
               <tr>
                 <td className="py-3 pr-4 text-xs uppercase text-[var(--color-steel-mid)]">
-                  INFRARED (IR) REJECTION
+                  {t('compareIr')}
                 </td>
                 {films.map((f) => (
                   <td key={f.id} className="px-3 py-3 tabular-nums text-[var(--color-pure-black)]">
@@ -88,7 +91,7 @@ export function CompareFilmsModal({
               </tr>
               <tr>
                 <td className="py-3 pr-4 text-xs uppercase text-[var(--color-steel-mid)]">
-                  UV PROTECTION
+                  {t('compareUv')}
                 </td>
                 {films.map((f) => (
                   <td key={f.id} className="px-3 py-3 tabular-nums">
@@ -98,7 +101,7 @@ export function CompareFilmsModal({
               </tr>
               <tr>
                 <td className="py-3 pr-4 text-xs uppercase text-[var(--color-steel-mid)]">
-                  {locale === 'es' ? 'TONOS DISPONIBLES' : 'AVAILABLE SHADES'}
+                  {t('shadesAvailable')}
                 </td>
                 {films.map((f) => (
                   <td key={f.id} className="px-3 py-3 text-xs tabular-nums">
@@ -108,7 +111,7 @@ export function CompareFilmsModal({
               </tr>
               <tr>
                 <td className="py-3 pr-4 text-xs uppercase text-[var(--color-steel-mid)]">
-                  {locale === 'es' ? 'GARANTÍA' : 'WARRANTY'}
+                  {t('warrantyLabel')}
                 </td>
                 {films.map((f) => (
                   <td key={f.id} className="font-body px-3 py-3 text-xs text-[var(--color-anvil)]">

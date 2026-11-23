@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Check, ShieldCheck } from 'lucide-react';
 import { formatCents } from '@/lib/pricing';
 import { cn } from '@/lib/utils';
@@ -35,10 +36,13 @@ export function FilmSpecCard({
   priceCents,
   selected = false,
   onSelect,
-  mostChosenLabel = 'Most chosen',
+  mostChosenLabel,
   variant = 'light',
   labels,
 }: FilmSpecCardProps) {
+  const tCommon = useTranslations('common');
+  const tHome = useTranslations('home');
+  const popularLabel = mostChosenLabel ?? tHome('mostChosen');
   const description = locale === 'es' ? film.descriptionEs : film.descriptionEn;
   const warranty = locale === 'es' ? film.warrantyEs : film.warrantyEn;
   const isDark = variant === 'dark';
@@ -66,10 +70,12 @@ export function FilmSpecCard({
         className="flex h-9 w-full items-center justify-between px-4"
         style={{ backgroundColor: TIER_GLASS_STRIP[film.tier] }}
       >
-        <span className="text-[11px] tracking-[0.08em] text-white uppercase">{film.tier}</span>
+        <span className="text-[11px] tracking-[0.08em] text-white uppercase">
+          {tCommon(`tiers.${film.tier}`)}
+        </span>
         {film.isPopular && (
           <span className="bg-[var(--color-giallo-vivo)] px-2 py-0.5 text-[10px] tracking-[0.023em] text-[var(--color-pure-black)] uppercase">
-            {mostChosenLabel}
+            {popularLabel}
           </span>
         )}
       </div>
@@ -106,7 +112,7 @@ export function FilmSpecCard({
               </span>
               {selected && (
                 <span className="mt-1.5 flex items-center justify-end gap-1 text-[11px] tracking-[0.023em] text-[var(--color-giallo-ombra)] uppercase">
-                  <Check className="h-3.5 w-3.5" /> SELECTED
+                  <Check className="h-3.5 w-3.5" /> {tCommon('selected')}
                 </span>
               )}
             </div>

@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AppointmentManager } from '@/components/appointment/AppointmentManager';
 import { localStore } from '@/lib/local-store';
@@ -22,7 +22,7 @@ export default async function MyAppointmentPage({
   let startsAt = new Date().toISOString();
   let waitType = 'drop_off';
   let customerName = '';
-  let vehicleLabel = 'Your vehicle';
+  let vehicleLabel = (await getTranslations('appointment'))('defaultVehicle');
   let locationId = 'loc-princeton-tx';
   let totalCents = 0;
   let depositCents = 5000;

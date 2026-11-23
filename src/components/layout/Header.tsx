@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 export function Header() {
   const t = useTranslations('nav');
+  const tCommon = useTranslations('common');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -29,12 +30,12 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-[var(--color-carbony-black)] text-white">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
         {/* Left: Logo */}
-        <Link href="/" aria-label="Top Glass Window Tint Home">
+        <Link href="/" aria-label={tCommon('homeLabel')}>
           <Logo variant="dark" />
         </Link>
 
         {/* Center: Uppercase LamboType nav */}
-        <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+        <nav aria-label={tCommon('primaryNav')} className="hidden items-center gap-8 md:flex">
           {navLinks.map((item) => (
             <Link
               key={item.href}
@@ -107,11 +108,11 @@ export function Header() {
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             className="inline-flex h-10 items-center gap-1.5 border border-[var(--color-graphite-border)] px-3 text-xs tracking-[0.023em] text-white uppercase"
-            aria-label="Toggle menu"
+            aria-label={tCommon('toggleMenu')}
             aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            <span>MENU</span>
+            <span>{tCommon('menu')}</span>
           </button>
         </div>
       </div>

@@ -23,6 +23,7 @@ export function SaveQuoteModal({
   onSaved,
 }: SaveQuoteModalProps) {
   const t = useTranslations('quote');
+  const tCommon = useTranslations('common');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,13 +51,13 @@ export function SaveQuoteModal({
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Could not save quote');
+        setError(data.error || t('errorSave'));
       } else {
         setSavedUrl(data.quoteUrl);
         onSaved?.(data.quoteUrl);
       }
     } catch {
-      setError('Network error. Please try again.');
+      setError(tCommon('networkError'));
     } finally {
       setLoading(false);
     }
@@ -76,7 +77,7 @@ export function SaveQuoteModal({
             type="button"
             onClick={onClose}
             className="inline-flex h-9 w-9 items-center justify-center border border-[var(--color-ash-border)] hover:border-[var(--color-pure-black)]"
-            aria-label="Close"
+            aria-label={tCommon('close')}
           >
             <X className="h-4 w-4" />
           </button>

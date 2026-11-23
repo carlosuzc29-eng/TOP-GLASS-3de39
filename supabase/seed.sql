@@ -36,7 +36,7 @@ insert into public.locations (
   'Salt Lake City',
   'Utah',
   'UT',
-  'TODO(content): Opening Soon — Salt Lake City, UT 84101',
+  'TODO(content): Salt Lake City, UT 84101',
   array['840', '841', '844'],
   'America/Denver',
   '(801) 555-0182',
@@ -59,9 +59,9 @@ insert into public.vehicle_categories (key, name_en, name_es, silhouette_key, so
   ('coupe', 'Coupe (2-Door)', 'Coupé (2 puertas)', 'coupe', 1),
   ('sedan', 'Sedan (4-Door)', 'Sedán (4 puertas)', 'sedan', 2),
   ('suv', 'SUV / Crossover', 'SUV / Crossover', 'suv', 3),
-  ('large_suv', 'Large SUV / Minivan', 'SUV Grande / Minivan', 'large_suv', 4),
-  ('pickup_single', 'Single Cab Pickup', 'Pickup Cabina Sencilla', 'pickup_single', 5),
-  ('pickup_crew', 'Crew Cab Pickup', 'Pickup Doble Cabina', 'pickup_crew', 6)
+  ('large_suv', 'Large SUV / Minivan', 'SUV grande / Minivan', 'large_suv', 4),
+  ('pickup_single', 'Single Cab Pickup', 'Pickup cabina sencilla', 'pickup_single', 5),
+  ('pickup_crew', 'Crew Cab Pickup', 'Pickup doble cabina', 'pickup_crew', 6)
 on conflict (key) do nothing;
 
 -- Films (Good / Better / Best / Ultimate)
@@ -75,7 +75,7 @@ insert into public.films (
   'Carbon Matte',
   'Top Glass Series',
   'Color-stable carbon film for crisp privacy, glare reduction, and zero signal interference.',
-  'Lámina de carbono de color estable para privacidad nítida, menor reflejo y cero interferencia de señal.',
+  'Película de carbono que no cambia de color: privacidad, menos reflejos y cero interferencia con tu celular o GPS.',
   44, 52, 99,
   'Lifetime limited warranty against bubbling, peeling, and fading',
   'Garantía limitada de por vida contra burbujas, desprendimiento y decoloración',
@@ -87,10 +87,10 @@ insert into public.films (
   'Nano Ceramic',
   'Top Glass Series',
   'Balanced ceramic heat rejection that noticeably cools the cabin without darkening your view.',
-  'Rechazo térmico cerámico equilibrado que enfría la cabina notablemente sin oscurecer tu visibilidad.',
+  'Cerámica equilibrada que refresca la cabina de forma notable sin quitarte visibilidad.',
   56, 78, 99,
   'Lifetime nationwide warranty covering fading, bubbling, and delamination',
-  'Garantía de por vida que cubre decoloración, burbujas y delaminación',
+  'Garantía de por vida en todo el país contra decoloración, burbujas y desprendimiento',
   array[70, 56, 40, 33, 22, 15, 5],
   false, true, 2, false, true
 ),
@@ -99,10 +99,10 @@ insert into public.films (
   'Ceramic Pro',
   'Top Glass Series',
   'Multi-layer nano-ceramic engineered for Texas summer heat. High infrared rejection with optical clarity.',
-  'Nanocerámica multicapa diseñada para el calor extremo de Texas. Alto rechazo infrarrojo con claridad óptica.',
+  'Nanocerámica multicapa pensada para el calor de Texas. Bloquea mucho calor infrarrojo y mantiene una vista nítida.',
   63, 88, 99,
   'Lifetime transferable warranty including glass-break replacement credit',
-  'Garantía de por vida transferible con crédito de reposición por rotura de vidrio',
+  'Garantía de por vida transferible, con crédito para reponer la película si se rompe el vidrio',
   array[70, 56, 40, 33, 22, 15, 5],
   false, true, 3, true, true
 ),
@@ -111,10 +111,10 @@ insert into public.films (
   'Ceramic IR Max',
   'Top Glass Series',
   'Maximum infrared and solar energy rejection available. Built for flagship comfort and interior preservation.',
-  'Máximo rechazo infrarrojo y de energía solar disponible. Diseñada para confort superior y cuidado del interior.',
+  'El mayor bloqueo de calor infrarrojo y solar que ofrecemos. Para máxima comodidad y para proteger tu interior.',
   71, 96, 99,
   'Lifetime premier warranty with priority service and no-fade guarantee',
-  'Garantía premier de por vida con atención prioritaria y cobertura total',
+  'Garantía premium de por vida con atención prioritaria y garantía contra decoloración',
   array[70, 56, 40, 33, 22, 15, 5],
   false, true, 4, false, true
 )
@@ -122,17 +122,17 @@ on conflict (tier) do nothing;
 
 -- Services
 insert into public.services (key, business_line, name_en, name_es, description_en, description_es, type, duration_min, zones, sort_order, active) values
-  ('full_car', 'auto_tint', 'Full Car (Sides + Rear)', 'Auto Completo (Laterales + Trasero)', 'All side windows plus full rear windshield.', 'Todas las ventanas laterales más el vidrio trasero completo.', 'main', 90, array['front', 'rear', 'back'], 1, true),
-  ('front_two', 'auto_tint', 'Front Two Doors Only', 'Solo Dos Puertas Delanteras', 'Match factory-tinted rear glass on SUVs and trucks.', 'Ideal para igualar el tono de fábrica en SUVs y pickups.', 'main', 40, array['front'], 2, true),
-  ('full_windshield', 'auto_tint', 'Full Windshield', 'Parabrisas Completo', 'Clear UV/IR heat-shielding film across the entire front glass.', 'Lámina transparente UV/IR de protección térmica en todo el parabrisas.', 'addon', 45, array['windshield'], 3, true),
-  ('sun_strip', 'auto_tint', 'Sun Strip (Brow)', 'Franja Solar (Visera)', 'Top glare-blocking visor strip along the upper windshield.', 'Franja superior antideslumbrante en la parte alta del parabrisas.', 'addon', 15, array['windshield'], 4, true),
-  ('single_sunroof', 'auto_tint', 'Single Sunroof', 'Sunroof Simple', 'Overhead solar heat rejection for a standard sunroof panel.', 'Rechazo térmico superior para techo corredizo estándar.', 'addon', 30, array['sunroof'], 5, true),
-  ('panoramic_roof', 'auto_tint', 'Full Panoramic Roof', 'Techo Panorámico Completo', 'Full coverage for dual-pane or panoramic glass roofs.', 'Cobertura total para techos de cristal panorámicos o dobles.', 'addon', 60, array['sunroof'], 6, true),
-  ('removal_front', 'auto_tint', 'Old Tint Removal — Front Two', 'Retiro de Tinte Viejo — Delanteras', 'Safe adhesive and film removal on front doors.', 'Retiro seguro de lámina y adhesivo en puertas delanteras.', 'removal', 30, array['front'], 7, true),
-  ('removal_full', 'auto_tint', 'Old Tint Removal — Full Car', 'Retiro de Tinte Viejo — Completo', 'Complete removal on all side windows and rear glass.', 'Retiro completo en laterales y vidrio trasero.', 'removal', 60, array['front', 'rear', 'back'], 8, true),
-  ('removal_windshield', 'auto_tint', 'Old Tint Removal — Windshield', 'Retiro de Tinte Viejo — Parabrisas', 'Removal of existing full windshield film.', 'Retiro de lámina existente en parabrisas.', 'removal', 35, array['windshield'], 9, true),
-  ('removal_sun_strip', 'auto_tint', 'Old Tint Removal — Sun Strip', 'Retiro de Tinte Viejo — Franja Solar', 'Removal of upper windshield visor strip.', 'Retiro de franja solar superior.', 'removal', 15, array['windshield'], 10, true),
-  ('removal_rear', 'auto_tint', 'Old Tint Removal — Rear Glass', 'Retiro de Tinte Viejo — Vidrio Trasero', 'Careful defroster-safe rear glass film removal.', 'Retiro cuidadoso protegiendo el desempañador trasero.', 'removal', 40, array['back'], 11, true)
+  ('full_car', 'auto_tint', 'Full Car (Sides + Rear)', 'Vehículo completo (laterales + medallón)', 'All side windows plus full rear windshield.', 'Todas las ventanas laterales y el medallón completo.', 'main', 90, array['front', 'rear', 'back'], 1, true),
+  ('front_two', 'auto_tint', 'Front Two Doors Only', 'Solo las dos puertas delanteras', 'Match factory-tinted rear glass on SUVs and trucks.', 'Para igualar los vidrios traseros oscuros de fábrica en SUVs y pickups.', 'main', 40, array['front'], 2, true),
+  ('full_windshield', 'auto_tint', 'Full Windshield', 'Parabrisas completo', 'Clear UV/IR heat-shielding film across the entire front glass.', 'Película transparente UV/IR que bloquea el calor en todo el parabrisas.', 'addon', 45, array['windshield'], 3, true),
+  ('sun_strip', 'auto_tint', 'Sun Strip (Brow)', 'Franja superior (visera)', 'Top glare-blocking visor strip along the upper windshield.', 'Franja en la parte de arriba del parabrisas que reduce el deslumbramiento.', 'addon', 15, array['windshield'], 4, true),
+  ('single_sunroof', 'auto_tint', 'Single Sunroof', 'Quemacocos sencillo', 'Overhead solar heat rejection for a standard sunroof panel.', 'Bloquea el calor del sol que entra por un quemacocos estándar.', 'addon', 30, array['sunroof'], 5, true),
+  ('panoramic_roof', 'auto_tint', 'Full Panoramic Roof', 'Techo panorámico completo', 'Full coverage for dual-pane or panoramic glass roofs.', 'Cobertura completa para techos panorámicos o de dos paneles de vidrio.', 'addon', 60, array['sunroof'], 6, true),
+  ('removal_front', 'auto_tint', 'Old Tint Removal — Front Two', 'Retiro de polarizado viejo — delanteras', 'Safe adhesive and film removal on front doors.', 'Quitamos la película y el pegamento de las puertas delanteras sin dañar el vidrio.', 'removal', 30, array['front'], 7, true),
+  ('removal_full', 'auto_tint', 'Old Tint Removal — Full Car', 'Retiro de polarizado viejo — vehículo completo', 'Complete removal on all side windows and rear glass.', 'Retiro completo en ventanas laterales y medallón.', 'removal', 60, array['front', 'rear', 'back'], 8, true),
+  ('removal_windshield', 'auto_tint', 'Old Tint Removal — Windshield', 'Retiro de polarizado viejo — parabrisas', 'Removal of existing full windshield film.', 'Retiro de la película que ya tiene el parabrisas.', 'removal', 35, array['windshield'], 9, true),
+  ('removal_sun_strip', 'auto_tint', 'Old Tint Removal — Sun Strip', 'Retiro de polarizado viejo — franja superior', 'Removal of upper windshield visor strip.', 'Retiro de la franja de la parte de arriba del parabrisas.', 'removal', 15, array['windshield'], 10, true),
+  ('removal_rear', 'auto_tint', 'Old Tint Removal — Rear Glass', 'Retiro de polarizado viejo — medallón', 'Careful defroster-safe rear glass film removal.', 'Retiro cuidadoso sin dañar las líneas del desempañador.', 'removal', 40, array['back'], 11, true)
 on conflict (key) do nothing;
 
 -- Price Matrix & Fixed Prices seeded dynamically via function for both locations

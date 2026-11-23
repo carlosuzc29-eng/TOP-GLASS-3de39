@@ -54,6 +54,8 @@ const YEARS = Array.from({ length: CURRENT_YEAR + 1 - 1990 + 1 }, (_, i) => CURR
 export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
   const t = useTranslations('quote');
   const tHome = useTranslations('home');
+  const tCommon = useTranslations('common');
+  const tBrand = useTranslations('brand');
   const locale = useLocale() as Locale;
   const searchParams = useSearchParams();
 
@@ -311,7 +313,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
         });
         const data = await res.json();
         if (!res.ok) {
-          setCheckoutError(data.error || 'Could not join waitlist');
+          setCheckoutError(data.error || t('errorWaitlist'));
         } else {
           trackClientEvent('quote_saved', { waitlist: true, location: activeLocation.slug });
           setWaitlistSuccess({
@@ -323,7 +325,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
       }
 
       if (!store.selectedSlotStartsAt || !store.selectedSlotEndsAt) {
-        setCheckoutError('Please select an appointment date and time first.');
+        setCheckoutError(t('errorSelectSlot'));
         store.setActiveStep(6);
         return;
       }
@@ -350,14 +352,14 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setCheckoutError(data.error || 'Unable to start checkout');
+        setCheckoutError(data.error || t('errorCheckout'));
         return;
       }
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       }
     } catch {
-      setCheckoutError('Network error. Please try again.');
+      setCheckoutError(tCommon('networkError'));
     } finally {
       setSubmitting(false);
     }
@@ -399,7 +401,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
       <div className="bg-[var(--color-carbony-black)] text-white">
         <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-10">
           <p className="text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
-            TOP GLASS CONFIGURATOR
+            {t('eyebrow')}
           </p>
           <h1 className="mt-2 font-display text-5xl leading-[0.95] font-normal uppercase sm:text-6xl">
             {t('title')}
@@ -480,7 +482,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                         </span>
                         {loc.status === 'coming_soon' && (
                           <span className="bg-[var(--color-carbony-black)] px-2 py-0.5 text-[10px] text-[var(--color-giallo-vivo)] uppercase">
-                            COMING SOON
+                            {tBrand('comingSoon')}
                           </span>
                         )}
                       </div>
@@ -610,7 +612,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                         onChange={(e) => setSelectedMake(e.target.value)}
                         className="font-body h-11 w-full border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)] px-3 text-sm"
                       >
-                        <option value="">Select...</option>
+                        <option value="">{tCommon('select')}</option>
                         {makes.map((m) => (
                           <option key={m} value={m}>
                             {m}
@@ -646,7 +648,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                         }}
                         className="font-body h-11 w-full border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)] px-3 text-sm disabled:opacity-50"
                       >
-                        <option value="">{loadingModels ? 'Loading...' : 'Select...'}</option>
+                        <option value="">{loadingModels ? tCommon('loading') : tCommon('select')}</option>
                         {models.map((m) => (
                           <option key={m.model} value={m.model}>
                             {m.model}
@@ -831,8 +833,11 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
               unlocked={store.maxUnlockedStep >= 4}
               summary={
                 store.mainServiceKey === 'full_car'
-                  ? `FRONT ${store.frontShade ?? '-'}% · REAR ${store.rearShade ?? '-'}%`
-                  : `FRONT ${store.frontShade ?? '-'}%`
+                  ? t('shadeSummaryFull', {
+                      front: store.frontShade ?? '-',
+                      rear: store.rearShade ?? '-',
+                    })
+                  : t('shadeSummaryFront', { front: store.frontShade ?? '-' })
               }
               editLabel={t('edit')}
               onEdit={() => store.setActiveStep(4)}
@@ -910,8 +915,10 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
               unlocked={store.maxUnlockedStep >= 5}
               summary={
                 store.addons.length + store.removals.length > 0
-                  ? `${store.addons.length + store.removals.length} SELECTED`
-                  : 'NONE'
+                  ? tCommon('selectedCount', {
+                      count: store.addons.length + store.removals.length,
+                    })
+                  : tCommon('none')
               }
               editLabel={t('edit')}
               onEdit={() => store.setActiveStep(5)}
@@ -1166,7 +1173,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                   </p>
                   {loadingSlots ? (
                     <p className="font-body text-xs text-[var(--color-steel-mid)]">
-                      Loading availability...
+                      {t('loadingAvailability')}
                     </p>
                   ) : (
                     <div className="flex gap-2 overflow-x-auto pb-2">
@@ -1275,7 +1282,7 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                     autoComplete="name"
                     value={store.customer.name}
                     onChange={(e) => store.setCustomer({ name: e.target.value })}
-                    placeholder="Alex Morgan"
+                    placeholder={t('namePlaceholder')}
                     className="font-body h-11 w-full border border-[var(--color-ash-border)] bg-[var(--color-marble-gray)] px-3 text-sm"
                   />
                 </div>
@@ -1443,11 +1450,15 @@ export function QuoteConfigurator({ catalog }: QuoteConfiguratorProps) {
                     ? [store.vehicle.year, store.vehicle.make, store.vehicle.model]
                         .filter(Boolean)
                         .join(' ')
-                    : 'LAMBORGHINI URUS · LIVE PREVIEW'}
+                    : `Lamborghini Urus · ${t('livePreview')}`}
                 </span>
                 <span className="tabular-nums text-[var(--color-giallo-vivo)]">
-                  F {store.frontShade ?? '-'}% · R{' '}
-                  {store.mainServiceKey === 'full_car' ? (store.rearShade ?? '-') : 'FACTORY'}%
+                  {store.mainServiceKey === 'full_car'
+                    ? t('shadeSummaryFull', {
+                        front: store.frontShade ?? '-',
+                        rear: store.rearShade ?? '-',
+                      })
+                    : `${t('shadeSummaryFront', { front: store.frontShade ?? '-' })} · ${tCommon('rear')}: ${tCommon('factory')}`}
                 </span>
               </div>
               <CarSilhouette

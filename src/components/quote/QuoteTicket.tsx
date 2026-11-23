@@ -70,8 +70,8 @@ export function QuoteTicket({
                   <p className="text-xs tracking-[0.023em] text-[var(--color-ash-border)] uppercase">
                     {[
                       line.filmName,
-                      line.frontShade != null ? `FRONT ${line.frontShade}%` : null,
-                      line.rearShade != null ? `REAR ${line.rearShade}%` : null,
+                      line.frontShade != null ? t('ticketFront', { shade: line.frontShade }) : null,
+                      line.rearShade != null ? t('ticketRear', { shade: line.rearShade }) : null,
                       line.shade != null ? `${line.shade}% VLT` : null,
                     ]
                       .filter(Boolean)

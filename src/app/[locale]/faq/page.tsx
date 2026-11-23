@@ -3,11 +3,15 @@ import { ArrowRight } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 
-export const metadata: Metadata = {
-  title: 'Frequently Asked Questions',
-  description:
-    'Answers on window tint curing time, cleaning, moisture pockets, lifetime warranty, and our 24-hour refundable deposit policy.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  return { title: t('faqTitle'), description: t('faqDescription') };
+}
 
 export default async function FaqPage({
   params,
